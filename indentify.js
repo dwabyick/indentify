@@ -4,8 +4,8 @@
  line should be indented or outdented, and adjusts appropriately. It assumes
  that the lines should start and end indented.
  */
-module.exports = function(html, indent) {
-  indent = indent !== undefined ? indent : 4;
+module.exports =  function (html, indent) {
+  indent = indent !== undefined ? indent : 2;
 
   var lines = html.split("\n");
   var curLine;
@@ -14,6 +14,7 @@ module.exports = function(html, indent) {
   var lastLineSpaces = -1;
   var indentLevel = -1;
 
+  var processedLines = []
   for (var i=0; i<lines.length; i++ ) {
 
     curLine = lines[i];
@@ -24,12 +25,18 @@ module.exports = function(html, indent) {
     else if (curLineSpaces < lastLineSpaces) {
       indentLevel--;
     }
-    lines[i] = curLine.replace(/^\s*/, spaces(indentLevel*indent));
+    curLine = curLine.replace(/^\s*/, spaces(indentLevel*indent));
     lastLineSpaces = curLineSpaces;
-  }
-  console.log(lines);
 
-  return lines.join("\n");
+    if ( curLine.length > 0 )
+    {
+      processedLines.push( curLine );
+    }
+  }
+
+  //console.log(lines);
+
+  return processedLines.join("\n");
 }
 
 function spaces(len) {

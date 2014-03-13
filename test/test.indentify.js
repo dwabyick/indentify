@@ -7,7 +7,7 @@ describe('indentify', function() {
   it('should appropriately correct indentation', function() {
     var input = fs.readFileSync('fixtures/input.html').toString();
     var output = fs.readFileSync('fixtures/output.html').toString();
-    expect(indentify(input)).to.equal(output);
+    expect(indentify(input, 4)).to.equal(output);
   })
 })
 
